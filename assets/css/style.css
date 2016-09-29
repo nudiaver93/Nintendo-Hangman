@@ -36,10 +36,14 @@ body {
 
 .wins {
 	position: absolute;
-	bottom: 30px;
+	bottom: 35px;
 	clear: both;
 }
 
 .params{
-	margin-top: 20px;
+	margin-top: 15px;
+}
+
+.guessedLetters {
+	margin-top: 15px;
 }
