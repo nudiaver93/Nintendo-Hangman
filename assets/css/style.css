@@ -14,11 +14,11 @@ body {
 }
 
 .gameContainer {
-	margin-top: 175px;
+	margin-top: 190px;
 }
 
 .game {
-	height: 450px;
+	height: 410px;
 	border-color: white;
 	border-style: solid;
 	border-radius: 20%;
@@ -31,9 +31,15 @@ body {
 }
 
 .imageContainer {
-	margin-top: 40px;
+	margin-top: 20px;
 }
 
 .wins {
-	margin-bottom: 0px;
+	position: absolute;
+	bottom: 30px;
+	clear: both;
+}
+
+.params{
+	margin-top: 20px;
 }

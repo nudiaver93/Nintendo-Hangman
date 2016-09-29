@@ -7,15 +7,14 @@
 
 <!-- All other assets -->
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+<script type="text/javascript" src="assets/javascript/hangman.js"></script>
+
 </head>
 <body>
 
 <section>
 
 	<img class="logo" src="assets/images/logo.png" alt='logo'>
-
-	<div class="music">
-	</div>
 
 </section>
 
@@ -28,22 +27,23 @@
 		<div class="col-xs-5 col-xs-offset-1 game">
 			<!-- Insert picture here -->
 			<div class="instructions1">
-				<h2 class="text-center"> Guess the game! </h2>
+				<h3 class="text-center"> Guess the game! </h3>
 			</div>
 			<div class="imageContainer">
-				<img src="assets/images/placeholder.jpeg" alt="game" class="img-responsive center-block">
+				<img src="assets/images/placeholder.png" alt="game" class="img-responsive center-block">
 			</div>
+			<div class="music"></div>
 		</div>
 
 		<div class="col-xs-5 game">
 			<div class="instructions2">
-				<h2 class="text-center"> Press any key to get started!</h2>
+				<h3 class="text-center"> Press any key to get started!</h3>
 			</div>
 
-			<div class="params1">
+			<div class="params">
 				<div class="row">
-				<h2 class="wins col-xs-11 col-xs-offset-1"> Wins: 0</h2>
-				<h2 class="remainingGuesses col-xs-11 col-xs-offset-1"> Guesses Left: 10</h2>
+				<h3 class="remainingGuesses col-xs-11 col-xs-offset-1"> Guesses Left: 10</h3>
+				<h4 class="guessedLetters col-xs-10 col-xs-offset-1"> Guessed: </h4>
 				</div>
 			</div>
 
@@ -51,8 +51,8 @@
 			</div>
 
 			<div>
-				<div class="row" style="position: absolute; bottom: 20px; left: 20px">
-					<h4 class="guessedLetters col-xs-10 col-xs-offset-2" style="vertical-align: bottom"> Letters Guessed: </h4>
+				<div class="row">
+					<h2 class="wins col-xs-8 col-xs-offset-4"> Wins: 0</h2>
 				</div>
 			</div>
 
