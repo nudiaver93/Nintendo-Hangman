@@ -1,0 +1,39 @@
+body {
+	background-color: black;
+	font-family: Tahoma;
+	font-weight: bold;
+	color: white;
+}
+
+.logo {
+    position: absolute;
+    top: 0; bottom:0; left: 0; right:0;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+}
+
+.gameContainer {
+	margin-top: 175px;
+}
+
+.game {
+	height: 450px;
+	border-color: white;
+	border-style: solid;
+	border-radius: 20%;
+	border-width: 15px;
+	padding-bottom: 200px;
+}
+
+.instructions1, .instructions2 {
+	margin-top: 30px;
+}
+
+.imageContainer {
+	margin-top: 40px;
+}
+
+.wins {
+	margin-bottom: 0px;
+}
