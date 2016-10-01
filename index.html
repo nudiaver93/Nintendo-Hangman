@@ -78,13 +78,16 @@
 		</div>
 
 	</div>
-	
+
 </div>
 </section>
 </body>
-<script>
+
+
+<script type='text/javascript'>
 var game = {
 
+	// Set all of the potential options
 	choices: {
 		"POKEMON RED AND BLUE" : {
 			image: 'red.png',
@@ -102,6 +105,7 @@ var game = {
 		}
 	}, 
 
+	// Create object variables
 	currentWord: null,
 	lettersInWord: [],
 	rightLetters: [],
@@ -130,7 +134,9 @@ var game = {
 		this.buildPage();
 	},
 
+	// Rebuilds the page After each game
 	buildPage: function(){
+
 		// Build the word for page view
 		var showWord = '';
 		for (i = 0; i < this.currentWord.length; i++) {
@@ -148,13 +154,20 @@ var game = {
 		$('.instructions2').html('<h2> Press any key to get started! </h2>');
 		var currentWins = this.wins.toString();
 		$('.wins').html('<h3>Wins: ' + currentWins + '</h3>');
-		var remainingGuesses = this.guessesLeft.toString();
-		$('.remaining').html('<h3>Guesses remaining: ' + remainingGuesses + '</h3>');
+		$('.remaining').html('<h3>Guesses remaining: 10</h3>');
 		$('.guessed').html('<h5>Letters guessed: </h5>');
-		// document.onkeyup to guesses
+
+		// Initialize function for first guess
+		this.letterGuess();
 	},
 
+	// Runs through guesses to decide which function to use
+	letterGuess: function(){
+		document.onkeyup = function(event){
+			
+		}
+	}
 }
-game.setupGame()
+game.setupGame();
 </script>
 </html>
