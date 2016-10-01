@@ -5,10 +5,11 @@
 <!-- Reference Bootstrap -->
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<!-- All other assets -->
-<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-<script type="text/javascript" src="assets/javascript/hangman.js"></script>
+<!-- Reference jQuery -->
+<script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
 
+<!-- Custon CSS -->
+<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
 
@@ -25,43 +26,135 @@
 	<div class="container">
 
 		<div class="col-xs-5 col-xs-offset-1 game">
-			<!-- Insert picture here -->
-			<div class="instructions1">
-				<h3 class="text-center"> Guess the game! </h3>
+
+			<div class="instructions1 text-center">
 			</div>
+
+		<!-- Insert picture here -->
 			<div class="imageContainer">
 				<img src="assets/images/placeholder.png" alt="game" class="img-responsive center-block">
 			</div>
-			<div class="music"></div>
+
+			<div class="music">
+			</div>
+
 		</div>
 
 		<div class="col-xs-5 game">
-			<div class="instructions2">
-				<h3 class="text-center"> Press any key to get started!</h3>
+
+			<div class="instructions2 text-center">
 			</div>
 
 			<div class="params">
 				<div class="row">
-				<h3 class="remainingGuesses col-xs-11 col-xs-offset-1"> Guesses Remaining: 10</h3>
-				<h5 class="guessedLetters col-xs-10 col-xs-offset-1"> Letters Guessed: </h5>
+					
+					<div class="col-xs-3 col-xs-offset-1">
+					
+						<div class="wins">
+						</div>
+					
+					</div>
+				
+					<div class="col-xs-8">
+				
+						<div class="remaining">
+						</div>
+					
+					</div>
+
+					<div class="guessed col-xs-11 col-xs-offset-1">
+					</div>
+
+					<div class="hangman text-center" style="margin-top: 30px">
+					</div>
+			
 				</div>
-			</div>
 
-			<div class="word">
-			</div>
-
-			<div>
-				<div class="row">
-					<h2 class="wins col-xs-8 col-xs-offset-4"> Wins: 0</h2>
+				<div class="word">
 				</div>
-			</div>
 
+			</div>
 
 		</div>
 
 	</div>
-
+	
 </div>
 </section>
 </body>
+<script>
+var game = {
+
+	choices: {
+		"POKEMON RED AND BLUE" : {
+			image: 'red.png',
+			song: 'https://p.scdn.co/mp3-preview/add95157ad23fa4bf947378fea3c81efc7b0bd6b',
+		},
+
+		"OCARINA OF TIME" : {
+			image: 'ocarina.jpg',
+			song: 'https://p.scdn.co/mp3-preview/53eb65352e617c6e4fe381d9c840a04fbe0dc848',
+		},
+
+		"SUPER MARIO BROS" : {
+			image: 'mario.jpg',
+			song: 'https://p.scdn.co/mp3-preview/8fc64914f4a72d94e51f89032fac9d7f56c280bd',
+		}
+	}, 
+
+	currentWord: null,
+	lettersInWord: [],
+	rightLetters: [],
+	wrongLetters: [],
+	guessesLeft: 10,
+	currentGuess: [],
+	wins: 0,
+
+	// Function to set up the first game
+	setupGame: function() {
+		// Get the keys of each option
+		var objKeys = Object.keys(this.choices);
+		this.currentWord = objKeys[Math.floor(Math.random() * objKeys.length)];
+
+		// get the characters in the options
+		var charsInWord = this.currentWord.split('');
+
+		// Return a unique array of characters
+		this.lettersInWord = charsInWord.filter(function(char, pos) {
+   		 		return charsInWord.indexOf(char) == pos;
+			})
+
+		// Remove spaces from letters in word
+		var space = this.lettersInWord.indexOf(' ');
+		this.lettersInWord.splice(space, 1);
+		this.buildPage();
+	},
+
+	buildPage: function(){
+		// Build the word for page view
+		var showWord = '';
+		for (i = 0; i < this.currentWord.length; i++) {
+			if (this.currentWord[i] !== ' '){
+				showWord += ' _ ';
+			}
+			else{
+			showWord += '&nbsp&nbsp';
+		}
+		}
+		$('.hangman').html('<h3>' + showWord + '</h3>');
+
+		// Add instructions, wins and guesses
+		$('.instructions1').html('<h2> Guess the game! </h2>');
+		$('.instructions2').html('<h2> Press any key to get started! </h2>');
+		var currentWins = this.wins.toString();
+		$('.wins').html('<h3>Wins: ' + currentWins + '</h3>');
+		var remainingGuesses = this.guessesLeft.toString();
+		$('.remaining').html('<h3>Guesses remaining: ' + remainingGuesses + '</h3>');
+		$('.guessed').html('<h5>Letters guessed: </h5>');
+		// document.onkeyup to guesses
+	},
+
+}
+game.setupGame()
+</script>
 </html>

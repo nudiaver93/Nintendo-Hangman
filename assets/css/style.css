@@ -18,12 +18,13 @@ body {
 }
 
 .game {
-	height: 410px;
+	height: 350px;
 	border-color: white;
 	border-style: solid;
 	border-radius: 20%;
 	border-width: 15px;
 	padding-bottom: 200px;
+	overflow: scroll;
 }
 
 .instructions1, .instructions2 {
@@ -35,15 +36,8 @@ body {
 }
 
 .wins {
-	position: absolute;
-	bottom: 35px;
-	clear: both;
+	margin-top: 0px;
 }
-
-.params{
-	margin-top: 15px;
-}
-
-.guessedLetters {
-	margin-top: 15px;
+.hangman {
+	padding-top: 70px;
 }
