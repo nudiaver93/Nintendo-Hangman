@@ -161,17 +161,40 @@ var game = {
 
 	// Function to 
 	letterGuess: function(){
+		if (this.w == true){
+
+		}
 		if (this.lettersInWord.indexOf(this.currentGuess) == -1){
 			/*this.guessesLeft -= 1;
 			$('.instructions2').html('<h2> Sorry! Try again! </h2>');
 			var left = this.guessesLeft.toString();
 			$('.remaining').html('<h3>Guesses remaining: ' + left + '</h3>');
 			console.log(this.allGuesses);
-		*/}
+		*/
+		this.rightGuess();
+		}
 		else {
+			/*
 			$('.instructions2').html('<h2> You got one! </h2>');
 			console.log(this.allGuesses);
+			*/
 		}
+	},
+
+	// If guess is correct, render page and word properly
+	wrongGuess: function(){
+	},
+
+	// If guess is wrong, render page properly
+	rightGuess: function(){
+	},
+
+	// If game is over (use jQuery to adjust page layout)
+	over: function(){
+	}
+
+	// If player wants to play again
+	retry: function(){
 	}
 }	
 
@@ -183,18 +206,26 @@ document.onkeyup = function(event){
 	var guess = String.fromCharCode(event.keyCode).toUpperCase();
 	var guessIdx = guess.charCodeAt(0);
 
-	// Check if guess is a valid letter
-	if (guessIdx >= 65 && guessIdx <= 90){
+	// Check if game is over
+	if (game.guessesLeft !== 0 || game.won !== true){
+		// Check if guess is a valid letter
+		if (guessIdx >= 65 && guessIdx <= 90){
 
-		// Check if guess has already been made
-		if (game.allGuesses.indexOf(guess) == -1){
+			// Check if guess has already been made
+			if (game.allGuesses.indexOf(guess) == -1){
+				// Set it as current guess if it passes checks
+				// Add it to total guesses and check if it's in word
+				game.currentGuess = guess;
+				game.allGuesses.push(guess);
+				game.letterGuess();
 
-			// Set it as current guess if it passes checks
-			// Add it to total guesses and check if it's in word
-			game.currentGuess = guess;
-			game.allGuesses.push(guess);
-			game.letterGuess();
+			}
 		}
+	}
+
+	// If game is over and player wants to play again - must specify space
+	else {
+		game.retry();
 	}
 }
 </script>
