@@ -108,11 +108,11 @@ var game = {
 	// Create object variables
 	currentWord: null,
 	lettersInWord: [],
-	rightLetters: [],
-	wrongLetters: [],
+	allGuesses: [],
 	guessesLeft: 10,
-	currentGuess: [],
+	currentGuess: null,
 	wins: 0,
+	won: false,
 
 	// Function to set up the first game
 	setupGame: function() {
@@ -134,7 +134,7 @@ var game = {
 		this.buildPage();
 	},
 
-	// Rebuilds the page After each game
+	// builds the page at the beginning of each game
 	buildPage: function(){
 
 		// Build the word for page view
@@ -149,25 +149,53 @@ var game = {
 		}
 		$('.hangman').html('<h3>' + showWord + '</h3>');
 
-		// Add instructions, wins and guesses
+		// Add initial instructions, wins and guesses
 		$('.instructions1').html('<h2> Guess the game! </h2>');
 		$('.instructions2').html('<h2> Press any key to get started! </h2>');
 		var currentWins = this.wins.toString();
 		$('.wins').html('<h3>Wins: ' + currentWins + '</h3>');
 		$('.remaining').html('<h3>Guesses remaining: 10</h3>');
 		$('.guessed').html('<h5>Letters guessed: </h5>');
+		
+		},
 
-		// Initialize function for first guess
-		this.letterGuess();
-	},
-
-	// Runs through guesses to decide which function to use
+	// Function to 
 	letterGuess: function(){
-		document.onkeyup = function(event){
-			
+		if (this.lettersInWord.indexOf(this.currentGuess) == -1){
+			/*this.guessesLeft -= 1;
+			$('.instructions2').html('<h2> Sorry! Try again! </h2>');
+			var left = this.guessesLeft.toString();
+			$('.remaining').html('<h3>Guesses remaining: ' + left + '</h3>');
+			console.log(this.allGuesses);
+		*/}
+		else {
+			$('.instructions2').html('<h2> You got one! </h2>');
+			console.log(this.allGuesses);
+		}
+	}
+}	
+
+// Set up the game
+game.setupGame();
+
+// Function for each time a guess is made
+document.onkeyup = function(event){
+	var guess = String.fromCharCode(event.keyCode).toUpperCase();
+	var guessIdx = guess.charCodeAt(0);
+
+	// Check if guess is a valid letter
+	if (guessIdx >= 65 && guessIdx <= 90){
+
+		// Check if guess has already been made
+		if (game.allGuesses.indexOf(guess) == -1){
+
+			// Set it as current guess if it passes checks
+			// Add it to total guesses and check if it's in word
+			game.currentGuess = guess;
+			game.allGuesses.push(guess);
+			game.letterGuess();
 		}
 	}
 }
-game.setupGame();
 </script>
 </html>
