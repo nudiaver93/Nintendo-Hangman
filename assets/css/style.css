@@ -3,6 +3,7 @@ body {
 	font-family: Tahoma;
 	font-weight: bold;
 	color: white;
+	position: absolute;
 }
 
 .logo {
@@ -18,26 +19,29 @@ body {
 }
 
 .game {
-	height: 350px;
+	float: left;
+	height: 550px;
 	border-color: white;
 	border-style: solid;
-	border-radius: 20%;
-	border-width: 15px;
+	border-radius: 25%;
+	border-width: 20px;
 	padding-bottom: 200px;
-	overflow: scroll;
+	overflow: hidden;
 }
 
-.instructions1, .instructions2 {
+.instructions {
 	margin-top: 30px;
 }
 
 .imageContainer {
-	margin-top: 20px;
+	margin-top: 10px;
 }
 
 .wins {
 	margin-top: 0px;
 }
+
 .hangman {
-	padding-top: 70px;
+	padding-top: 0px;
 }
+

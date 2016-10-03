@@ -25,53 +25,37 @@
 
 	<div class="container">
 
-		<div class="col-xs-5 col-xs-offset-1 game">
+		<div class="col-xs-10 col-xs-offset-1 game">
 
-			<div class="instructions1 text-center">
+			<div class="instructions text-center">
 			</div>
 
+				
+			<div class="col-xs-12 text-center">
+				
+				<div class="remaining">
+				</div>
+					
+			</div>
 		<!-- Insert picture here -->
 			<div class="imageContainer">
-				<img src="assets/images/placeholder.png" alt="game" class="img-responsive center-block">
+				<img src="assets/images/placeholder.png" alt="game" class="image img-responsive center-block">
 			</div>
 
 			<div class="music">
 			</div>
 
-		</div>
-
-		<div class="col-xs-5 game">
-
-			<div class="instructions2 text-center">
-			</div>
-
 			<div class="params">
 				<div class="row">
-					
-					<div class="col-xs-3 col-xs-offset-1">
-					
-						<div class="wins">
-						</div>
-					
-					</div>
 				
-					<div class="col-xs-8">
-				
-						<div class="remaining">
-						</div>
-					
-					</div>
 
-					<div class="guessed col-xs-11 col-xs-offset-1">
-					</div>
-
-					<div class="hangman text-center" style="margin-top: 30px">
+					<div class="guessed col-xs-10 col-xs-offset-2">
 					</div>
 			
 				</div>
 
-				<div class="word">
-				</div>
+					<div class="hangman text-center">
+					</div>
 
 			</div>
 
@@ -86,36 +70,71 @@
 
 <script type='text/javascript'>
 var game = {
-
 	// Set all of the potential options
 	choices: {
 		"POKEMON RED AND BLUE" : {
-			image: 'red.png',
-			song: 'https://p.scdn.co/mp3-preview/add95157ad23fa4bf947378fea3c81efc7b0bd6b',
+			image: 'pokemonrb.png',
+			song: 'https://p.scdn.co/mp3-preview/4949aa79efc08875b1d4435e96d771c2c9089264',
+			title: 'Pokemon Red And Blue',
 		},
-
 		"OCARINA OF TIME" : {
-			image: 'ocarina.jpg',
+			image: 'oot.png',
 			song: 'https://p.scdn.co/mp3-preview/53eb65352e617c6e4fe381d9c840a04fbe0dc848',
+			title: 'Ocarina Of Time',
 		},
-
 		"SUPER MARIO BROS" : {
 			image: 'mario.jpg',
 			song: 'https://p.scdn.co/mp3-preview/8fc64914f4a72d94e51f89032fac9d7f56c280bd',
-		}
+			title: 'Super Mario Bros',
+		},
+		"KID ICARUS": {
+			image: 'kidicarus.png',
+			song: 'https://p.scdn.co/mp3-preview/32b22291412deec1bc9319d65a25a88361446e75',
+			title: 'Kid Icarus',
+		},
+		"FIRE EMBLEM": {
+			image: 'fireemblem.png',
+			song: 'https://p.scdn.co/mp3-preview/1a483a81d068afe7ab14c05e3cc1c9c489ad59b1',
+			title: 'Fire Emblem',
+		},
+		"METROID PRIME": {
+			image: 'metroid.png',
+			song: 'https://p.scdn.co/mp3-preview/4c4806b2643eb6d653ff70fa5574112164ff685c',
+			title: 'Metroid Prime',
+		},
+		"WIND WAKER": {
+			image: 'ww.png',
+			song: 'https://p.scdn.co/mp3-preview/084bcd779c6b5b084aaad48da21311d9cd6048d3',
+			title: 'Wind Waker',
+		},
+		"STAR FOX ASSAULT": {
+			image: 'sfa.png',
+			song: 'https://p.scdn.co/mp3-preview/4d9c0e2b40e8243dbf0e7ef64a6206d0410e4950',
+			title: 'Star Fox Assault',
+		},
+		"SUPER SMASH BROS": {
+			image: 'ssb.png',
+			song: 'https://p.scdn.co/mp3-preview/5fed4c9d003e30d44498845bcdebd46c253d0fc5',
+			title: 'Super Smash Bros',
+		},
+		
 	}, 
-
 	// Create object variables
 	currentWord: null,
 	lettersInWord: [],
+	rightGuesses: [],
 	allGuesses: [],
 	guessesLeft: 10,
 	currentGuess: null,
-	wins: 0,
 	won: false,
 
-	// Function to set up the first game
+	// Function to set up new game
 	setupGame: function() {
+
+		// Resets these parameters if necessary
+		this.guessesLeft = 10;
+		this.won = false;
+
 		// Get the keys of each option
 		var objKeys = Object.keys(this.choices);
 		this.currentWord = objKeys[Math.floor(Math.random() * objKeys.length)];
@@ -126,12 +145,13 @@ var game = {
 		// Return a unique array of characters
 		this.lettersInWord = charsInWord.filter(function(char, pos) {
    		 		return charsInWord.indexOf(char) == pos;
-			})
+			});
 
 		// Remove spaces from letters in word
 		var space = this.lettersInWord.indexOf(' ');
 		this.lettersInWord.splice(space, 1);
 		this.buildPage();
+
 	},
 
 	// builds the page at the beginning of each game
@@ -139,94 +159,235 @@ var game = {
 
 		// Build the word for page view
 		var showWord = '';
+		var count = 0;
 		for (i = 0; i < this.currentWord.length; i++) {
 			if (this.currentWord[i] !== ' '){
 				showWord += ' _ ';
 			}
-			else{
-			showWord += '&nbsp&nbsp';
-		}
-		}
-		$('.hangman').html('<h3>' + showWord + '</h3>');
 
-		// Add initial instructions, wins and guesses
-		$('.instructions1').html('<h2> Guess the game! </h2>');
-		$('.instructions2').html('<h2> Press any key to get started! </h2>');
-		var currentWins = this.wins.toString();
-		$('.wins').html('<h3>Wins: ' + currentWins + '</h3>');
-		$('.remaining').html('<h3>Guesses remaining: 10</h3>');
+			else{
+				showWord += '&nbsp&nbsp';
+				count += 1;
+				if (count % 2 == 0){
+					showWord += '<br>'
+				}
+			}
+		}
+		$('.hangman').html('<h1>' + showWord + '</h1>');
+
+		// Add initial instructions and guesses
+		$('.instructions').html('<h3> Guess the game! Press any key to play! </h3>');
+		var left = this.guessesLeft.toString();
+		$('.remaining').html('<h4>You have ' + left + ' wrong guesses remaining.</h4>');
 		$('.guessed').html('<h5>Letters guessed: </h5>');
-		
 		},
 
-	// Function to 
+	// Function to read each guess that passes check and assign to functions
 	letterGuess: function(){
-		if (this.w == true){
 
-		}
+		// Checks if letter is not in answer
 		if (this.lettersInWord.indexOf(this.currentGuess) == -1){
-			/*this.guessesLeft -= 1;
-			$('.instructions2').html('<h2> Sorry! Try again! </h2>');
-			var left = this.guessesLeft.toString();
-			$('.remaining').html('<h3>Guesses remaining: ' + left + '</h3>');
-			console.log(this.allGuesses);
-		*/
-		this.rightGuess();
+
+			// Lower the number of guesses remaining
+			this.guessesLeft -= 1;
+			this.wrongGuess();
 		}
 		else {
 			/*
 			$('.instructions2').html('<h2> You got one! </h2>');
 			console.log(this.allGuesses);
 			*/
+		this.rightGuesses.push(this.currentGuess)
+		this.rightGuess();
 		}
 	},
 
-	// If guess is correct, render page and word properly
 	rightGuess: function(){
+
+		// Update instructions
+		$('.instructions').html('<h3> Awesome! You guessed correctly! </h3>');
+
+		// Update guesses made on page
+		var string = ' ';
+		for (i = 0; i < this.allGuesses.length; i++){
+			string += this.allGuesses[i];
+			if (i < (this.allGuesses.length - 1)){
+				string += ', ';
+			}
+		}
+			string.substr(string.length - 3, 2);
+			$('.guessed').html('<h5>Letters guessed: ' + string + '</h5>');
+
+		// Rebuild word after guess
+		this.rebuildWord();
 	},
 
-	// If guess is wrong, render page properly
 	wrongGuess: function(){
+			
+		// Update instructions
+		$('.instructions').html('<h3> Sorry, that was wrong! Try again! </h3>');
+
+			// Update guesses left on page
+			var left = this.guessesLeft.toString();
+			$('.remaining').html('<h4>You have ' + left + ' wrong guesses remaining.</h4>');
+
+			// Update guesses made on page
+			var string = ' ';
+			for (i = 0; i < this.allGuesses.length; i++){
+				string += this.allGuesses[i];
+				if (i < (this.allGuesses.length - 1)){
+					string += ', ';
+				}
+			}
+			string.substr(string.length - 3, 2);
+			$('.guessed').html('<h5>Letters guessed: ' + string + '</h5>');
+
+			// Checks if the player has lost after this guess
+			if (this.guessesLeft == 0){
+				this.gameOver();
+			}
 	},
 
-	// If game is over (use jQuery to adjust page layout)
-	over: function(){
-	}
+	rebuildWord: function(){
 
-	// If player wants to play again
-	retry: function(){
-	}
+		// Build the word for page view
+		var showWord = '';
+		var count = 0;
+		for (i = 0; i < this.currentWord.length; i++) {
+			if (this.currentWord[i] !== ' '){
+				if (this.allGuesses.indexOf(this.currentWord[i]) == -1){
+					showWord += ' _ ';
+				}
+				else {
+					showWord += ' ' + this.currentWord[i] + ' ';
+				}
+			}
+
+			else{
+				showWord += '&nbsp&nbsp';
+				count += 1;
+				if (count % 2 == 0){
+					showWord += '<br>'
+				}
+			}
+		}
+		$('.hangman').html('<h1>' + showWord + '</h1>');
+
+		// Checks if the player has won after this guess
+		if (this.rightGuesses.length == this.lettersInWord.length){
+			this.won = true;
+			this.gameOver()
+		}
+
+	},
+
+	gameOver: function(){
+
+		var audio = new Audio(this.choices[this.currentWord].song);
+		audio.play();
+
+
+		// If user won
+		if (this.won){
+			// Congratulate the victory
+			$('.instructions').html('<h3> You won! It was ' + this.choices[this.currentWord].title + '!</h3>');
+
+			// Instructions to play again
+			$('.remaining').html('<h4>Press space to play again!</h4>');
+			var imgRoute = 'assets/images/' + this.choices[this.currentWord].image;
+
+		// Replace image
+		$('.image').attr({
+			'src': imgRoute, 
+		})
+
+		// Play audio
+		}
+
+		// If user lost
+		else{
+			/*
+			// Rebuild full word
+			var showWord = '';
+			var count = 0;
+			for (i = 0; i < this.currentWord.length; i++) {
+				if (this.currentWord[i] !== ' '){
+					showWord += ' ' + this.currentWord[i] + ' ';
+				}
+
+				else{
+					showWord += '&nbsp&nbsp';
+					count += 1;
+					if (count % 2 == 0){
+						showWord += '<br>'
+					}
+				}
+		$('.hangman').html('<h1>' + showWord + '</h1>');*/
+
+
+			// Give the title name
+			$('.instructions').html('<h3> You lost! It was ' + this.choices[this.currentWord].title + '!</h3>');
+
+			// Instructions to play again
+			$('.remaining').html('<h4>Press space to play again!</h4>');
+			var imgRoute = 'assets/images/' + this.choices[this.currentWord].image;
+
+			// Replace image
+			$('.image').attr({
+				'src': imgRoute, 
+			})
+
+		// Play audio
+		}
+	},
+
 }	
 
 // Set up the game
 game.setupGame();
 
-// Function for each time a guess is made
+
+function restart(){
+}
+
+// Reads the user's guesses
 document.onkeyup = function(event){
-	var guess = String.fromCharCode(event.keyCode).toUpperCase();
-	var guessIdx = guess.charCodeAt(0);
 
-	// Check if game is over
-	if (game.guessesLeft !== 0 || game.won !== true){
+	// Checks if game should continue to be played
+	var guess;
+	var guessCode;
+	if (game.guessesLeft !== 0 && game.won !== true){
+
+		// Reads the guess
+		guess = String.fromCharCode(event.keyCode).toUpperCase();
+		guessCode = guess.charCodeAt(0);
+
 		// Check if guess is a valid letter
-		if (guessIdx >= 65 && guessIdx <= 90){
-
+		if (guessCode >= 65 && guessCode <= 90){
+			
 			// Check if guess has already been made
 			if (game.allGuesses.indexOf(guess) == -1){
+		
 				// Set it as current guess if it passes checks
 				// Add it to total guesses and check if it's in word
 				game.currentGuess = guess;
 				game.allGuesses.push(guess);
 				game.letterGuess();
-
 			}
 		}
 	}
 
-	// If game is over and player wants to play again - must specify space
+	// Checks if the game is over
 	else {
-		game.retry();
+		guess = String.fromCharCode(event.keyCode);
+		guessCode = guess.charCodeAt(0);
+
+		// Restart game if user presses space
+		if (guessCode === 32){
+			location.reload()
+		}
 	}
 }
+ 
 </script>
-</html>
+  </html>
