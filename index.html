@@ -31,7 +31,7 @@
 			</div>
 
 				
-			<div class="col-xs-12 text-center">
+			<div class="col-xs-12 text-center" style='padding-bottom: 2px'>
 				
 				<div class="remaining">
 				</div>
@@ -49,7 +49,7 @@
 				<div class="row">
 				
 
-					<div class="guessed col-xs-10 col-xs-offset-2">
+					<div class="guessed col-xs-10 col-xs-offset-2" style='padding-top: 15px'>
 					</div>
 			
 				</div>
@@ -173,13 +173,13 @@ var game = {
 				}
 			}
 		}
-		$('.hangman').html('<h1>' + showWord + '</h1>');
+		$('.hangman').html('<h2>' + showWord + '</h2>');
 
 		// Add initial instructions and guesses
 		$('.instructions').html('<h3> Guess the game! Press any key to play! </h3>');
 		var left = this.guessesLeft.toString();
 		$('.remaining').html('<h4>You have ' + left + ' wrong guesses remaining.</h4>');
-		$('.guessed').html('<h5>Letters guessed: </h5>');
+		$('.guessed').html('<h5>Letters Guessed: </h5>');
 		},
 
 	// Function to read each guess that passes check and assign to functions
@@ -216,7 +216,7 @@ var game = {
 			}
 		}
 			string.substr(string.length - 3, 2);
-			$('.guessed').html('<h5>Letters guessed: ' + string + '</h5>');
+			$('.guessed').html('<h5>Letters Guessed: ' + string + '</h5>');
 
 		// Rebuild word after guess
 		this.rebuildWord();
@@ -240,7 +240,7 @@ var game = {
 				}
 			}
 			string.substr(string.length - 3, 2);
-			$('.guessed').html('<h5>Letters guessed: ' + string + '</h5>');
+			$('.guessed').html('<h5>Letters Guessed: ' + string + '</h5>');
 
 			// Checks if the player has lost after this guess
 			if (this.guessesLeft == 0){
@@ -271,7 +271,7 @@ var game = {
 				}
 			}
 		}
-		$('.hangman').html('<h1>' + showWord + '</h1>');
+		$('.hangman').html('<h2>' + showWord + '</h2>');
 
 		// Checks if the player has won after this guess
 		if (this.rightGuesses.length == this.lettersInWord.length){
@@ -283,6 +283,7 @@ var game = {
 
 	gameOver: function(){
 
+		// Play audio
 		var audio = new Audio(this.choices[this.currentWord].song);
 		audio.play();
 
@@ -301,29 +302,10 @@ var game = {
 			'src': imgRoute, 
 		})
 
-		// Play audio
 		}
 
 		// If user lost
 		else{
-			/*
-			// Rebuild full word
-			var showWord = '';
-			var count = 0;
-			for (i = 0; i < this.currentWord.length; i++) {
-				if (this.currentWord[i] !== ' '){
-					showWord += ' ' + this.currentWord[i] + ' ';
-				}
-
-				else{
-					showWord += '&nbsp&nbsp';
-					count += 1;
-					if (count % 2 == 0){
-						showWord += '<br>'
-					}
-				}
-		$('.hangman').html('<h1>' + showWord + '</h1>');*/
-
 
 			// Give the title name
 			$('.instructions').html('<h3> You lost! It was ' + this.choices[this.currentWord].title + '!</h3>');
@@ -337,7 +319,6 @@ var game = {
 				'src': imgRoute, 
 			})
 
-		// Play audio
 		}
 	},
 
